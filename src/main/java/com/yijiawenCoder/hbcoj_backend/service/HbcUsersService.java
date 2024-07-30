@@ -1,6 +1,6 @@
 package com.yijiawenCoder.hbcoj_backend.service;
 
-import com.yijiawenCoder.hbcoj_backend.model.dto.UserRegisterRequest;
+import com.yijiawenCoder.hbcoj_backend.model.dto.user.UserRegisterRequest;
 import com.yijiawenCoder.hbcoj_backend.model.entity.HbcUsers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yijiawenCoder.hbcoj_backend.model.vo.LoginUserVO;
@@ -28,5 +28,7 @@ public interface HbcUsersService extends IService<HbcUsers> {
     LoginUserVO userLogin(String userAccount, String userPassword,HttpServletRequest request);
 
     LoginUserVO  getLoginUserVO(HbcUsers user);
-
+    HbcUsers getLoginUser(HttpServletRequest request);
+    HbcUsers getLoginUserPermitNull(HttpServletRequest request);
+    boolean userLogout(HttpServletRequest request);
 }

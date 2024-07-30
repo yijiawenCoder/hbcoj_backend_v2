@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yijiawenCoder.hbcoj_backend.common.ErrorCode;
 import com.yijiawenCoder.hbcoj_backend.exception.BusinessException;
-import com.yijiawenCoder.hbcoj_backend.model.dto.UserRegisterRequest;
+import com.yijiawenCoder.hbcoj_backend.model.dto.user.UserRegisterRequest;
 import com.yijiawenCoder.hbcoj_backend.model.entity.HbcUsers;
 import com.yijiawenCoder.hbcoj_backend.model.enums.UserRoleEnum;
 import com.yijiawenCoder.hbcoj_backend.model.vo.LoginUserVO;
@@ -110,12 +110,20 @@ public class HbcUsersServiceImpl extends ServiceImpl<HbcUsersMapper, HbcUsers>
 
     }
 
-    //TODO
+
     @Override
     public String updateUser(HbcUsers hbcUsers, HttpServletRequest request) {
+        if (!isAdmin(request)) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
 
+        }
 
-        return null;
+        int i = this.baseMapper.updateById(hbcUsers);
+        if (i <= 0) {
+            return null;
+        }
+        return "" + i;
+
     }
 
     @Override
@@ -169,6 +177,38 @@ public class HbcUsersServiceImpl extends ServiceImpl<HbcUsersMapper, HbcUsers>
         LoginUserVO loginUserVO = new LoginUserVO();
         BeanUtils.copyProperties(user, loginUserVO);
         return loginUserVO;
+    }
+
+    @Override
+    public HbcUsers getLoginUser(HttpServletRequest request) {
+        Object loginUser = request.getSession().getAttribute(USER_LOGIN_STATE);
+        HbcUsers currentUser = (HbcUsers) loginUser;
+        if (currentUser == null || currentUser.getUserId() == null) {
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
+
+        return currentUser;
+    }
+
+    @Override
+    public HbcUsers getLoginUserPermitNull(HttpServletRequest request) {
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        HbcUsers currentUser = (HbcUsers) userObj;
+        if (currentUser == null || currentUser.getUserId() == null) {
+            return null;
+        }
+        return currentUser;
+
+    }
+
+    @Override
+    public boolean userLogout(HttpServletRequest request) {
+        if (request.getSession().getAttribute(USER_LOGIN_STATE) == null) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "未登录");
+        }
+        // 移除登录态
+        request.getSession().removeAttribute(USER_LOGIN_STATE);
+        return true;
     }
 
 

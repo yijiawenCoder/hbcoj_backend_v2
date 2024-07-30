@@ -1,4 +1,4 @@
-package com.yijiawenCoder.hbcoj_backend.model.dto;
+package com.yijiawenCoder.hbcoj_backend.model.dto.user;
 
 import lombok.Data;
 
