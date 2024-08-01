@@ -1,9 +1,7 @@
 package com.yijiawenCoder.hbcoj_backend.model.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -18,7 +16,7 @@ public class HbcFavours implements Serializable {
     /**
      * 收藏唯一ID
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_UUID)
     private String favourId;
 
     /**

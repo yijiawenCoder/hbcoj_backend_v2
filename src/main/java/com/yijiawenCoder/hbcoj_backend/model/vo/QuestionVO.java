@@ -1,22 +1,19 @@
-package com.yijiawenCoder.hbcoj_backend.model.entity;
+package com.yijiawenCoder.hbcoj_backend.model.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.yijiawenCoder.hbcoj_backend.model.entity.HbcUsers;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
-/**
- * 题目表
- * @TableName hbc_questions
- */
-@TableName(value ="hbc_questions")
-@Data
-public class HbcQuestions implements Serializable {
+public class QuestionVO implements Serializable {
     /**
      * 题目唯一ID
      */
-    @TableId(type = IdType.ASSIGN_UUID)
+
     private String questionId;
 
     /**
@@ -38,17 +35,33 @@ public class HbcQuestions implements Serializable {
      *  题目答案
      */
     private String questionAnswer;
+    /**
+     * 题目提交数
+     */
+    private Integer QuestionSubmitNum;
 
     /**
-     * 判题用例（json 数组）
+     * 题目通过数
      */
-    private String judgeCase;
+    private Integer QuestionAcceptedNum;
+
+
 
     /**
      * 判题配置（json 对象）
      */
     private String judgeConfig;
 
+
+    /**
+     * 点赞数
+     */
+    private Integer thumbNum;
+
+    /**
+     * 收藏数
+     */
+    private Integer favourNum;
     /**
      * 创建用户 id
      */
@@ -63,13 +76,9 @@ public class HbcQuestions implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
     /**
-     * 是否删除
+     * 创建人信息
      */
-    @TableLogic
-    private Integer isDelete;
-
-    @TableField(exist = false)
+    private HbcUsers userVO;
     private static final long serialVersionUID = 1L;
 }

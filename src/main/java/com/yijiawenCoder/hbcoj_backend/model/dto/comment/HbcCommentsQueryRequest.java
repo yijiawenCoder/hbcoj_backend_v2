@@ -1,22 +1,18 @@
-package com.yijiawenCoder.hbcoj_backend.model.entity;
+package com.yijiawenCoder.hbcoj_backend.model.dto.comment;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
-
-/**
- * 评论表
- * @TableName hbc_comments
- */
-@TableName(value ="hbc_comments")
 @Data
-public class HbcComments implements Serializable {
+public class HbcCommentsQueryRequest implements Serializable {
     /**
      * 评论唯一id
      */
-    @TableId(type = IdType.ASSIGN_UUID)
+
     private String commentId;
 
     /**
@@ -35,7 +31,7 @@ public class HbcComments implements Serializable {
     private String userId;
 
     /**
-     * 评论内容
+     * 根据评论内容模糊查询
      */
     private String commentContent;
 
@@ -55,16 +51,11 @@ public class HbcComments implements Serializable {
     private Date createTime;
 
     /**
-     *  更新时间
-     */
-    private Date updateTime;
-
-    /**
      *  是否删除
      */
-    @TableLogic
+
     private Integer isDelete;
 
-    @TableField(exist = false)
+
     private static final long serialVersionUID = 1L;
 }

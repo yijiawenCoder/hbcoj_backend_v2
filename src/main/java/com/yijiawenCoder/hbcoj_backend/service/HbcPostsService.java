@@ -9,6 +9,7 @@ import com.yijiawenCoder.hbcoj_backend.model.entity.HbcPosts;
 import com.yijiawenCoder.hbcoj_backend.model.vo.HbcPostsVO;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
 * @author 26510
@@ -16,29 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 * @createDate 2024-07-21 14:40:29
 */
 public interface HbcPostsService extends IService<HbcPosts> {
-    /**
-     * 校验
-     *
-     * @param post
-     * @param add
-     */
-    void validHbcPosts(HbcPosts post, boolean add);
 
-    /**
-     * 获取查询条件
-     *
-     * @param postQueryRequest
-     * @return
-     */
-    QueryWrapper<HbcPosts> getQueryWrapper(HbcPostsQueryRequest postQueryRequest);
-
-    /**
-     * 从 ES 查询
-     *
-     * @param postQueryRequest
-     * @return
-     */
-    Page<HbcPosts> searchFromEs(HbcPostsQueryRequest postQueryRequest);
+    boolean addPost(HbcPosts hbcPosts, HttpServletRequest request);
+    boolean updatePost(HbcPosts hbcPosts, HttpServletRequest request);
+    boolean deletePost(HbcPosts hbcPosts, HttpServletRequest request);
 
     /**
      * 获取帖子封装
@@ -47,16 +29,7 @@ public interface HbcPostsService extends IService<HbcPosts> {
      * @param request
      * @return
      */
-    HbcPostsVO getHbcPostsVO(HbcPosts post, HttpServletRequest request);
-
-    /**
-     * 分页获取帖子封装
-     *
-     * @param postPage
-     * @param request
-     * @return
-     */
-    Page<HbcPostsVO> getHbcPostsVOPage(Page<HbcPosts> postPage, HttpServletRequest request);
+    List<HbcPostsVO> getHbcPostsVO(HbcPosts post, HttpServletRequest request);
 
 
 }

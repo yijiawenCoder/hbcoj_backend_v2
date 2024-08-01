@@ -1,10 +1,14 @@
 package com.yijiawenCoder.hbcoj_backend.service;
 
+import com.yijiawenCoder.hbcoj_backend.model.dto.comment.HbcCommentAddRequest;
 import com.yijiawenCoder.hbcoj_backend.model.dto.comment.HbcCommentsQueryRequest;
 import com.yijiawenCoder.hbcoj_backend.model.entity.HbcComments;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yijiawenCoder.hbcoj_backend.model.vo.CommentsVO;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
 * @author 26510
@@ -13,9 +17,9 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public interface HbcCommentsService extends IService<HbcComments> {
-    boolean  addComment(HbcComments hbcComments);
+    boolean  addComment(HbcCommentAddRequest hbcCommentAddRequest, HttpServletRequest httpServletRequest);
     boolean deleteComment(String id);
-    CommentsVO getComment(HbcCommentsQueryRequest hbcCommentsQueryRequest);
-    boolean thumbComment(String  commentId);
+   List<CommentsVO> getComments(HbcCommentsQueryRequest hbcCommentsQueryRequest);
+
 
 }

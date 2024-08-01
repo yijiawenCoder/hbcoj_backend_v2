@@ -3,6 +3,8 @@ package com.yijiawenCoder.hbcoj_backend.service;
 import com.yijiawenCoder.hbcoj_backend.model.entity.HbcThumbs;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
 * @author 26510
 * @description 针对表【hbc_thumbs(点赞表)】的数据库操作Service
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface HbcThumbsService extends IService<HbcThumbs> {
 
+    boolean thumbComment(String commentId, HttpServletRequest request);
 }

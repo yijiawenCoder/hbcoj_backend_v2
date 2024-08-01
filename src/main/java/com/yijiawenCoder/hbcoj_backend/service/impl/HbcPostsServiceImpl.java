@@ -5,12 +5,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yijiawenCoder.hbcoj_backend.model.dto.post.HbcPostsQueryRequest;
 import com.yijiawenCoder.hbcoj_backend.model.entity.HbcPosts;
+import com.yijiawenCoder.hbcoj_backend.model.enums.DeleteStateEnum;
 import com.yijiawenCoder.hbcoj_backend.model.vo.HbcPostsVO;
 import com.yijiawenCoder.hbcoj_backend.service.HbcPostsService;
 import com.yijiawenCoder.hbcoj_backend.mapper.HbcPostsMapper;
+import com.yijiawenCoder.hbcoj_backend.service.HbcUsersService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 /**
 * @author 26510
@@ -20,29 +26,39 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class HbcPostsServiceImpl extends ServiceImpl<HbcPostsMapper, HbcPosts>
     implements HbcPostsService{
+    @Resource
+    HbcUsersService usersService;
+    @Override
+    public boolean addPost(HbcPosts hbcPosts, HttpServletRequest request) {
+
+
+
+
+
+        hbcPosts.setUserId(usersService.getLoginUser(request).getUserId());
+        hbcPosts.setCreateTime(new Timestamp(new java.util.Date().getTime()));
+        hbcPosts.setUpdateTime(new Timestamp(new java.util.Date().getTime()));
+        hbcPosts.setIsDelete(DeleteStateEnum.NORMAL.getValue());
+
+        return this.save(hbcPosts);
+    }
 
     @Override
-    public void validHbcPosts(HbcPosts post, boolean add) {
+    public boolean updatePost(HbcPosts hbcPosts, HttpServletRequest request) {
+
+
+        hbcPosts.setUpdateTime(new Timestamp(new java.util.Date().getTime()));
+      return this.updateById(hbcPosts);
 
     }
 
     @Override
-    public QueryWrapper<HbcPosts> getQueryWrapper(HbcPostsQueryRequest postQueryRequest) {
-        return null;
+    public boolean deletePost(HbcPosts hbcPosts, HttpServletRequest request) {
+        return this.removeById(hbcPosts.getPostId());
     }
 
     @Override
-    public Page<HbcPosts> searchFromEs(HbcPostsQueryRequest postQueryRequest) {
-        return null;
-    }
-
-    @Override
-    public HbcPostsVO getHbcPostsVO(HbcPosts post, HttpServletRequest request) {
-        return null;
-    }
-
-    @Override
-    public Page<HbcPostsVO> getHbcPostsVOPage(Page<HbcPosts> postPage, HttpServletRequest request) {
+    public List<HbcPostsVO> getHbcPostsVO(HbcPosts post, HttpServletRequest request) {
         return null;
     }
 }
