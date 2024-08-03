@@ -57,7 +57,7 @@ public class HbcCommentsServiceImpl extends ServiceImpl<HbcCommentsMapper, HbcCo
     }
 
     @Override
-    public boolean deleteComment(String id) {
+    public boolean deleteComment(String id,HttpServletRequest request) {
         return this.removeById(id);
     }
 
@@ -68,7 +68,7 @@ public class HbcCommentsServiceImpl extends ServiceImpl<HbcCommentsMapper, HbcCo
      * @return
      */
     @Override
-    public List<CommentsVO> getComments(HbcCommentsQueryRequest hbcCommentsQueryRequest) {
+    public List<CommentsVO> getComments(HbcCommentsQueryRequest hbcCommentsQueryRequest,HttpServletRequest request) {
         QueryWrapper<HbcComments> queryWrapper = new QueryWrapper<HbcComments>();
         queryWrapper.eq("root_id", hbcCommentsQueryRequest.getRootId());
         queryWrapper.eq("service_id", hbcCommentsQueryRequest.getServiceId());

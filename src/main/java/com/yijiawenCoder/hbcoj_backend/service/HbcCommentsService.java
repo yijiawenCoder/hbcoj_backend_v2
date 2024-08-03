@@ -18,8 +18,8 @@ import java.util.List;
 @Service
 public interface HbcCommentsService extends IService<HbcComments> {
     boolean  addComment(HbcCommentAddRequest hbcCommentAddRequest, HttpServletRequest httpServletRequest);
-    boolean deleteComment(String id);
-   List<CommentsVO> getComments(HbcCommentsQueryRequest hbcCommentsQueryRequest);
+    boolean deleteComment(String id,HttpServletRequest request);
+   List<CommentsVO> getComments(HbcCommentsQueryRequest hbcCommentsQueryRequest,HttpServletRequest request);
 
 
 }
